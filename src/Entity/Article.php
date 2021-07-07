@@ -4,19 +4,51 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
-
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue()
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPublished;
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(?bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -25,11 +57,6 @@ class Article
     {
         return $this->id;
     }
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $title;
 
     /**
      * @return mixed
@@ -48,11 +75,6 @@ class Article
     }
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
      * @return mixed
      */
     public function getContent()
@@ -69,11 +91,6 @@ class Article
     }
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
      * @return mixed
      */
     public function getCreatedAt()
@@ -87,27 +104,6 @@ class Article
     public function setCreatedAt($createdAt): void
     {
         $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @ORM\Column (type="boolean")
-     */
-    private $isPublished;
-
-    /**
-     * @return mixed
-     */
-    public function getIsPublished()
-    {
-        return $this->isPublished;
-    }
-
-    /**
-     * @param mixed $isPublished
-     */
-    public function setIsPublished($isPublished): void
-    {
-        $this->isPublished = $isPublished;
     }
 
 
