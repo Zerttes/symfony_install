@@ -3,52 +3,22 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Category;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
+
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isPublished;
-
-    public function getIsPublished(): ?bool
-    {
-        return $this->isPublished;
-    }
-
-    public function setIsPublished(?bool $isPublished): self
-    {
-        $this->isPublished = $isPublished;
-
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -57,6 +27,11 @@ class Article
     {
         return $this->id;
     }
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
 
     /**
      * @return mixed
@@ -75,6 +50,11 @@ class Article
     }
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
+
+    /**
      * @return mixed
      */
     public function getContent()
@@ -89,6 +69,11 @@ class Article
     {
         $this->content = $content;
     }
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     /**
      * @return mixed
@@ -106,6 +91,46 @@ class Article
         $this->createdAt = $createdAt;
     }
 
+    /**
+     * @ORM\Column (type="boolean")
+     */
+    private $isPublished;
 
+    /**
+     * @return mixed
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
+    }
+
+    /**
+     * @param mixed $isPublished
+     */
+    public function setIsPublished($isPublished): void
+    {
+        $this->isPublished = $isPublished;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     */
+    private $category;
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
 
 }
