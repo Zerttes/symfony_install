@@ -1,31 +1,44 @@
 <?php
 
-namespace App\Contoller;
 
+namespace App\Controller;
+
+use App\Repository\CategoryRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
-class PageController
-
+class CategoryController extends AbstractController
 {
 
     /**
-     * @Route ("/", name="home")
+     * @Route("/", name="home")
      */
-    public function home () {
-        var_dump ( 'Acceuil'); die;
+    public function home()
+    {
+        return $this->render('home.html.twig');
     }
 
     /**
-     * @Route ("/contact", name="contact")
+     * @Route("/categories", name="categoriesList")
      */
-    public function contact ()
+    public function categorieList(CategoryRepository $categoryRepository)
     {
-        var_dump('conatct'); die;
+        $list = $categoryRepository->findAll();
+        return $this->render('categories.html.twig', ['list' => $list]);
 
     }
 
-
+    /**
+     * @Route("/categorie/{id}", name="categorieShow")
+     */
+    public function categorieShow($id, CategoryRepository $categoryRepository)
+    {
+        $categorie = $categoryRepository->find($id);
+        if(isset($categorie)){
+            return $this->render('categorie.html.twig', ['categorie' => $categorie]);
+        }else{
+            throw new NotFoundHttpException("Erreur 404. La page que vous cherchez n'a pas été trouvée");;
+        }
+    }
 }
-
-
-?>
