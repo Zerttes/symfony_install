@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block metaTitle %}
-    Le tag n°{{ tag.id }}
+    La catégorie n°{{ categorie.id }}
 {% endblock metaTitle %}
 
 {% block main %}
     <div class="container-fluid">
-        <div class="row tag">
-            <h1>{{ tag.title }}</h1>
-            <h2 style="color : {{ tag.color }}">
-                Couleur du tag :  {{ colors[tag.color] }}
-            </h2>
-            {% for article in tag.articles %}
+        <div class="row">
+            <h1>{{ categorie.title }}</h1>
+            <h2>{{ categorie.description }}</h2>
+            {% for article in categorie.articles %}
                 <a href="{{ path('articleShow', {'id' : article.id}) }}"><h3>{{ article.title }}</h3></a>
             {% endfor %}
         </div>
@@ -20,6 +18,6 @@
 
 {% block footer %}
     <p>
-        Vous avez lu l'étiquette n°{{ tag.id }} du journal de la mort qui tue de la Piscine
+        Vous avez lu la catégorie n°{{ categorie.id }} du journal de la mort qui tue de la Piscine
     </p>
 {% endblock footer %}
